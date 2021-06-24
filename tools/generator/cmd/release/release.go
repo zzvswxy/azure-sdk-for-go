@@ -12,13 +12,12 @@ import (
 
 	"github.com/Azure/azure-sdk-for-go/tools/generator/autorest/model"
 	"github.com/Azure/azure-sdk-for-go/tools/generator/autorest_ext"
-	"github.com/Azure/azure-sdk-for-go/tools/generator/autorest_ext/changelog_ext"
+	"github.com/Azure/azure-sdk-for-go/tools/generator/sdk"
 	"github.com/Azure/azure-sdk-for-go/tools/generator/autorest_ext/model_ext"
 	"github.com/Azure/azure-sdk-for-go/tools/generator/common"
 	"github.com/Azure/azure-sdk-for-go/tools/generator/config"
 	"github.com/Azure/azure-sdk-for-go/tools/generator/config/validate"
-	"github.com/Azure/azure-sdk-for-go/tools/generator/repos"
-	"github.com/Azure/azure-sdk-for-go/tools/generator/sdk"
+	"github.com/Azure/azure-sdk-for-go/tools/internal/repo"
 	"github.com/Azure/azure-sdk-for-go/tools/generator/utils/flags"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/spf13/cobra"
@@ -119,7 +118,7 @@ type commandContext struct {
 	sdkRef            *plumbing.Reference
 	specRef           *plumbing.Reference
 
-	repoContent changelog_ext.RepoContent
+	repoContent sdk.RepoContent
 }
 
 func (c *commandContext) execute() error {
@@ -219,7 +218,7 @@ func (c *commandContext) execute() error {
 	}
 
 	log.Printf("Switch back to branch '%s'", refreshRef.Name())
-	if err := c.SDK().Checkout(&repos.CheckoutOptions{
+	if err := c.SDK().Checkout(&repo.CheckoutOptions{
 		Branch: refreshRef.Name(),
 		Force:  true,
 	}); err != nil {
@@ -245,13 +244,13 @@ func (c *commandContext) execute() error {
 
 	// generate the changelog
 	log.Printf("Generating CHANGELOG...")
-	r, err := changelog_ext.GetPackagesReportFromContent(c.repoContent, c.SDK().Root())
+	r, err := sdk.GetPackagesReportFromContent(c.repoContent, c.SDK().Root())
 	if err != nil {
 		return err
 	}
 
 	// write changelog
-	if err := changelog_ext.NewWriterFromFile(sdk.ChangelogPath(c.SDK().Root())).WithVersion(version.NewVersion).Write(r); err != nil {
+	if err := sdk.NewWriterFromFile(sdk.ChangelogPath(c.SDK().Root())).WithVersion(version.NewVersion).Write(r); err != nil {
 		return err
 	}
 	// write version
@@ -259,7 +258,7 @@ func (c *commandContext) execute() error {
 		return err
 	}
 	// add commit
-	if err := repos.AddCommit(c.SDK(), version.NewVersion); err != nil {
+	if err := repo.AddCommit(c.SDK(), version.NewVersion); err != nil {
 		return err
 	}
 
@@ -336,7 +335,7 @@ func (c *commandContext) generate(requests *config.Config) ([]GenerateResult, ma
 }
 
 func (c *commandContext) getVersion(major bool) (*common.VersionInfo, error) {
-	latestVersion, err := repos.GetLatestVersion(c.SDK())
+	latestVersion, err := repo.GetLatestVersion(c.SDK())
 	if err != nil {
 		return nil, fmt.Errorf("failed to get latest version: %+v", err)
 	}

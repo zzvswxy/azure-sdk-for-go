@@ -14,13 +14,13 @@ import (
 	"github.com/Azure/azure-sdk-for-go/tools/generator/autorest_ext"
 	"github.com/Azure/azure-sdk-for-go/tools/generator/common"
 	"github.com/Azure/azure-sdk-for-go/tools/generator/config"
-	"github.com/Azure/azure-sdk-for-go/tools/generator/repos"
+	"github.com/Azure/azure-sdk-for-go/tools/internal/repo"
 	"github.com/Azure/azure-sdk-for-go/tools/internal/exports"
 )
 
 type generateContext struct {
-	sdkRepo            repos.SDKRepository
-	specRepo           repos.SpecRepository
+	sdkRepo            repo.SDKRepository
+	specRepo           repo.SpecRepository
 	readme             string
 	specLastCommitHash string
 
@@ -120,7 +120,7 @@ func (ctx *generateContext) commit(tag string) error {
 
 	message := fmt.Sprintf("Generated from %s tag %s (commit hash: %s)", ctx.readme, tag, ctx.specLastCommitHash)
 	if err := ctx.sdkRepo.Commit(message); err != nil {
-		if repos.IsNothingToCommit(err) {
+		if repo.IsNothingToCommit(err) {
 			log.Printf("There is nothing to commit. Message: %s", message)
 			return nil
 		}

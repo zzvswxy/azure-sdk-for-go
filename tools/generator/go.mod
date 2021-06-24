@@ -4,9 +4,7 @@ go 1.13
 
 require (
 	github.com/Azure/azure-sdk-for-go v54.2.1+incompatible
-	github.com/Azure/azure-sdk-for-go/tools/apidiff v1.1.0
 	github.com/Azure/azure-sdk-for-go/tools/internal v0.1.0
-	github.com/Azure/azure-sdk-for-go/tools/pkgchk v1.1.0
 	github.com/Masterminds/semver v1.5.0
 	github.com/ahmetb/go-linq/v3 v3.2.0
 	github.com/go-git/go-git/v5 v5.4.2
@@ -18,5 +16,3 @@ require (
 )
 
 replace github.com/Azure/azure-sdk-for-go/tools/apidiff => ../apidiff
-
-replace github.com/Azure/azure-sdk-for-go/tools/pkgchk => ../pkgchk
