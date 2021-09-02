@@ -204,8 +204,7 @@ func (s *azblobTestSuite) TestBlobStartCopyMetadata() {
 	blobName := generateBlobName(testName)
 	bbClient := createNewBlockBlob(_assert, blobName, containerClient)
 
-	anotherBlobName := "copy" + blobName
-	copyBlobClient := getBlockBlobClient(anotherBlobName, containerClient)
+	copyBlobClient := getBlockBlobClient("copy"+blobName, containerClient)
 
 	metadata := make(map[string]string)
 	metadata["Bla"] = "foo"
