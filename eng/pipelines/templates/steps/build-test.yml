@@ -60,7 +60,7 @@ steps:
            Write-Host $_
            Get-Service docker | Restart-Service
          }
-      condition: and(succeededOrFailed(), eq('${{ parameters.TestProxy }}', 'true'), eq(variables['Agent.OS'],'Windows_NT'))
+      condition: and(succeededOrFailed(), eq(variables['Agent.OS'],'Windows_NT'))
 
     - template: /eng/common/testproxy/test-proxy-docker.yml
 
