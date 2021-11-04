@@ -15,7 +15,7 @@ import (
 )
 
 type (
-	// ReceivedMessage is a received message from a Client.NewReceiver() or Client.NewProcessor().
+	// ReceivedMessage is a received message from a Client.NewReceiver().
 	ReceivedMessage struct {
 		Message
 
@@ -77,19 +77,6 @@ const (
 	deadLetterSourceAnnotation       = "x-opt-deadletter-source"
 	enqueuedSequenceNumberAnnotation = "x-opt-enqueue-sequence-number"
 )
-
-// Set implements tab.Carrier
-func (m *Message) Set(key string, value interface{}) {
-	if m.ApplicationProperties == nil {
-		m.ApplicationProperties = make(map[string]interface{})
-	}
-	m.ApplicationProperties[key] = value
-}
-
-// GetKeyValues implements tab.Carrier
-func (m *Message) GetKeyValues() map[string]interface{} {
-	return m.ApplicationProperties
-}
 
 func (m *Message) messageType() string {
 	return "Message"

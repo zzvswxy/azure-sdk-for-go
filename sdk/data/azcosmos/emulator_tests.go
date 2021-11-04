@@ -27,8 +27,8 @@ func newEmulatorTests(t *testing.T) *emulatorTests {
 }
 
 func (e *emulatorTests) getClient(t *testing.T) *Client {
-	cred, _ := NewSharedKeyCredential(e.key)
-	client, err := NewClientWithSharedKey(e.host, cred, nil)
+	cred, _ := NewKeyCredential(e.key)
+	client, err := NewClientWithKey(e.host, cred, nil)
 	if err != nil {
 		t.Fatalf("Failed to create client: %v", err)
 	}
@@ -40,24 +40,25 @@ func (e *emulatorTests) createDatabase(
 	t *testing.T,
 	ctx context.Context,
 	client *Client,
-	dbName string) *Database {
-	database := DatabaseProperties{Id: dbName}
+	dbName string) *DatabaseClient {
+	database := DatabaseProperties{ID: dbName}
 	resp, err := client.CreateDatabase(ctx, database, nil)
 	if err != nil {
 		t.Fatalf("Failed to create database: %v", err)
 	}
 
-	if resp.DatabaseProperties.Id != database.Id {
+	if resp.DatabaseProperties.ID != database.ID {
 		t.Errorf("Unexpected id match: %v", resp.DatabaseProperties)
 	}
 
-	return resp.DatabaseProperties.Database
+	db, _ := client.NewDatabase(dbName)
+	return db
 }
 
 func (e *emulatorTests) deleteDatabase(
 	t *testing.T,
 	ctx context.Context,
-	database *Database) {
+	database *DatabaseClient) {
 	_, err := database.Delete(ctx, nil)
 	if err != nil {
 		t.Fatalf("Failed to delete database: %v", err)

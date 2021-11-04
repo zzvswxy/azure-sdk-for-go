@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/messaging/azservicebus/internal"
 	"github.com/stretchr/testify/require"
 )
 
@@ -44,7 +43,7 @@ func Test_Sender_SendBatchOfTwo(t *testing.T) {
 	require.NoError(t, err)
 
 	receiver, err := client.NewReceiverForQueue(
-		queueName, &ReceiverOptions{ReceiveMode: ReceiveAndDelete})
+		queueName, &ReceiverOptions{ReceiveMode: ReceiveModeReceiveAndDelete})
 	require.NoError(t, err)
 	defer receiver.Close(ctx)
 
@@ -55,7 +54,7 @@ func Test_Sender_SendBatchOfTwo(t *testing.T) {
 }
 
 func Test_Sender_UsingPartitionedQueue(t *testing.T) {
-	client, cleanup, queueName := setupLiveTest(t, &internal.QueueDescription{
+	client, cleanup, queueName := setupLiveTest(t, &QueueProperties{
 		EnablePartitioning: to.BoolPtr(true),
 	})
 	defer cleanup()
@@ -65,7 +64,7 @@ func Test_Sender_UsingPartitionedQueue(t *testing.T) {
 	defer sender.Close(context.Background())
 
 	receiver, err := client.NewReceiverForQueue(
-		queueName, &ReceiverOptions{ReceiveMode: ReceiveAndDelete})
+		queueName, &ReceiverOptions{ReceiveMode: ReceiveModeReceiveAndDelete})
 	require.NoError(t, err)
 	defer receiver.Close(context.Background())
 
@@ -111,13 +110,13 @@ func Test_Sender_UsingPartitionedQueue(t *testing.T) {
 func Test_Sender_SendMessages(t *testing.T) {
 	ctx := context.Background()
 
-	client, cleanup, queueName := setupLiveTest(t, &internal.QueueDescription{
+	client, cleanup, queueName := setupLiveTest(t, &QueueProperties{
 		EnablePartitioning: to.BoolPtr(true),
 	})
 	defer cleanup()
 
 	receiver, err := client.NewReceiverForQueue(
-		queueName, &ReceiverOptions{ReceiveMode: ReceiveAndDelete})
+		queueName, &ReceiverOptions{ReceiveMode: ReceiveModeReceiveAndDelete})
 	require.NoError(t, err)
 	defer receiver.Close(context.Background())
 
@@ -152,12 +151,12 @@ func Test_Sender_SendMessages_resend(t *testing.T) {
 	require.NoError(t, err)
 
 	peekLockReceiver, err := client.NewReceiverForQueue(queueName, &ReceiverOptions{
-		ReceiveMode: PeekLock,
+		ReceiveMode: ReceiveModePeekLock,
 	})
 	require.NoError(t, err)
 
 	deletingReceiver, err := client.NewReceiverForQueue(queueName, &ReceiverOptions{
-		ReceiveMode: ReceiveAndDelete,
+		ReceiveMode: ReceiveModeReceiveAndDelete,
 	})
 	require.NoError(t, err)
 
@@ -172,7 +171,7 @@ func Test_Sender_SendMessages_resend(t *testing.T) {
 		err = sender.SendMessage(ctx, msg)
 		require.NoError(t, err)
 
-		message, err := receiver.ReceiveMessage(ctx, nil)
+		message, err := receiver.receiveMessage(ctx, nil)
 		require.NoError(t, err)
 		require.EqualValues(t, "first send", msg.ApplicationProperties["Status"])
 		require.EqualValues(t, "ResendableMessage", string(msg.Body))
@@ -185,7 +184,7 @@ func Test_Sender_SendMessages_resend(t *testing.T) {
 		err = sender.SendMessage(ctx, msg)
 		require.NoError(t, err)
 
-		message, err = receiver.ReceiveMessage(ctx, nil)
+		message, err = receiver.receiveMessage(ctx, nil)
 		require.NoError(t, err)
 		require.EqualValues(t, "resend", msg.ApplicationProperties["Status"])
 		require.EqualValues(t, "ResendableMessage", string(msg.Body))
@@ -206,7 +205,7 @@ func Test_Sender_ScheduleMessages(t *testing.T) {
 	defer cleanup()
 
 	receiver, err := client.NewReceiverForQueue(
-		queueName, &ReceiverOptions{ReceiveMode: ReceiveAndDelete})
+		queueName, &ReceiverOptions{ReceiveMode: ReceiveModeReceiveAndDelete})
 	require.NoError(t, err)
 	defer receiver.Close(context.Background())
 

@@ -9,9 +9,10 @@ package runtime
 import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
+	armpolicy "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/internal/pipeline"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/internal/shared"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
+	azpolicy "github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	azruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 )
 
@@ -25,30 +26,16 @@ func NewPipeline(module, version string, cred azcore.TokenCredential, options *a
 	if len(ep) == 0 {
 		ep = arm.AzurePublicCloud
 	}
-	policies := []policy.Policy{}
-	if !options.Telemetry.Disabled {
-		policies = append(policies, azruntime.NewTelemetryPolicy(module, version, &options.Telemetry))
-	}
+	perCallPolicies := []azpolicy.Policy{}
 	if !options.DisableRPRegistration {
-		regRPOpts := RegistrationOptions{
-			HTTPClient: options.Transport,
-			Logging:    options.Logging,
-			Retry:      options.Retry,
-			Telemetry:  options.Telemetry,
-		}
-		policies = append(policies, NewRPRegistrationPolicy(string(ep), cred, &regRPOpts))
+		regRPOpts := armpolicy.RegistrationOptions{ClientOptions: options.ClientOptions}
+		perCallPolicies = append(perCallPolicies, NewRPRegistrationPolicy(string(ep), cred, &regRPOpts))
 	}
-	policies = append(policies, options.PerCallPolicies...)
-	policies = append(policies, azruntime.NewRetryPolicy(&options.Retry))
-	policies = append(policies, options.PerRetryPolicies...)
-	policies = append(policies,
-		azruntime.NewBearerTokenPolicy(cred, azruntime.AuthenticationOptions{
-			TokenRequest: policy.TokenRequestOptions{
-				Scopes: []string{shared.EndpointToScope(string(ep))},
-			},
+	perRetryPolicies := []azpolicy.Policy{
+		NewBearerTokenPolicy(cred, &armpolicy.BearerTokenOptions{
+			Scopes:           []string{shared.EndpointToScope(string(ep))},
 			AuxiliaryTenants: options.AuxiliaryTenants,
-		},
-		),
-		azruntime.NewLogPolicy(&options.Logging))
-	return azruntime.NewPipeline(options.Transport, policies...)
+		}),
+	}
+	return azruntime.NewPipeline(module, version, perCallPolicies, perRetryPolicies, &options.ClientOptions)
 }
