@@ -50,18 +50,6 @@ steps:
     workingDirectory: '${{parameters.GoWorkspace}}'
 
   - ${{ if eq(parameters.TestProxy, true) }}:
-  
-    - pwsh: |
-         try {
-           docker info
-         }
-         catch {
-           Write-Host "Unable to access docker service, dumping error and restarting."
-           Write-Host $_
-           Get-Service docker | Restart-Service
-         }
-      condition: and(succeededOrFailed(), eq(variables['Agent.OS'],'Windows_NT'))
-
     - template: /eng/common/testproxy/test-proxy-docker.yml
 
   - task: PowerShell@2
