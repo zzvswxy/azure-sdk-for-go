@@ -404,16 +404,17 @@ func AddURISubscriptionIDSanitizer(value string, options *RecordingOptions) erro
 
 // ResetProxy restores the proxy's default sanitizers, matchers, and transforms
 func ResetProxy(options *RecordingOptions) error {
-	if recordMode == LiveMode {
-		return nil
-	}
-	if options == nil {
-		options = defaultOptions()
-	}
-	url := fmt.Sprintf("%v/Admin/Reset", options.baseURL())
-	req, err := http.NewRequest("POST", url, nil)
-	if err != nil {
-		return err
-	}
-	return handleProxyResponse(client.Do(req))
+	return nil;
+	// if recordMode == LiveMode {
+	// 	return nil
+	// }
+	// if options == nil {
+	// 	options = defaultOptions()
+	// }
+	// url := fmt.Sprintf("%v/Admin/Reset", options.baseURL())
+	// req, err := http.NewRequest("POST", url, nil)
+	// if err != nil {
+	// 	return err
+	// }
+	// return handleProxyResponse(client.Do(req))
 }
