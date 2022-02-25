@@ -44,7 +44,7 @@ steps:
     displayName: "Install Coverage and Junit Dependencies"
 
   - ${{ if eq(parameters.TestProxy, true) }}:
-    - template: /eng/common/testproxy/test-proxy-tool.yml
+    - template: /eng/common/testproxy/test-proxy-docker.yml
 
   - task: PowerShell@2
     displayName: 'Run Tests'
@@ -59,9 +59,13 @@ steps:
       ${{ insert }}: ${{ parameters.EnvVars }}
 
   - ${{ if eq(parameters.TestProxy, true) }}:
+    # - pwsh: |
+    #     # $(Build.SourcesDirectory)/test-proxy.log is the hardcoded output log location for the test-proxy-tool.yml
+    #     cat $(Build.SourcesDirectory)/test-proxy.log
+    #   displayName: 'Dump Test Proxy logs'
+    #   condition: succeededOrFailed()
     - pwsh: |
-        # $(Build.SourcesDirectory)/test-proxy.log is the hardcoded output log location for the test-proxy-tool.yml
-        cat $(Build.SourcesDirectory)/test-proxy.log
+        docker logs ambitious_azsdk_test_proxy
       displayName: 'Dump Test Proxy logs'
       condition: succeededOrFailed()
 
