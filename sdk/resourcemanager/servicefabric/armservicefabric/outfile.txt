@@ -1,0 +1,129 @@
+=== RUN   TestClusters_Get
+--- PASS: TestClusters_Get (0.02s)
+=== RUN   TestClusters_CreateOrUpdate
+--- PASS: TestClusters_CreateOrUpdate (0.02s)
+=== RUN   TestClusters_Update
+--- PASS: TestClusters_Update (0.01s)
+=== RUN   TestClusters_Delete
+--- PASS: TestClusters_Delete (0.00s)
+=== RUN   TestClusters_ListByResourceGroup
+--- PASS: TestClusters_ListByResourceGroup (0.01s)
+=== RUN   TestClusters_List
+--- PASS: TestClusters_List (0.01s)
+=== RUN   TestClusters_ListUpgradableVersions
+--- PASS: TestClusters_ListUpgradableVersions (0.01s)
+=== RUN   TestClusterVersions_Get
+--- PASS: TestClusterVersions_Get (0.01s)
+=== RUN   TestClusterVersions_GetByEnvironment
+--- PASS: TestClusterVersions_GetByEnvironment (0.00s)
+=== RUN   TestClusterVersions_List
+--- PASS: TestClusterVersions_List (0.02s)
+=== RUN   TestClusterVersions_ListByEnvironment
+--- PASS: TestClusterVersions_ListByEnvironment (0.01s)
+=== RUN   TestOperations_List
+--- PASS: TestOperations_List (0.01s)
+=== RUN   TestApplicationTypes_Get
+--- PASS: TestApplicationTypes_Get (0.01s)
+=== RUN   TestApplicationTypes_CreateOrUpdate
+--- PASS: TestApplicationTypes_CreateOrUpdate (0.01s)
+=== RUN   TestApplicationTypes_Delete
+--- PASS: TestApplicationTypes_Delete (0.01s)
+=== RUN   TestApplicationTypes_List
+--- PASS: TestApplicationTypes_List (0.01s)
+=== RUN   TestApplicationTypeVersions_Get
+--- PASS: TestApplicationTypeVersions_Get (0.01s)
+=== RUN   TestApplicationTypeVersions_CreateOrUpdate
+    zt_generated_mock_test.go:1913: Failed to get LRO result for example specification/servicefabric/resource-manager/Microsoft.ServiceFabric/stable/2021-06-01/examples/ApplicationTypeVersionPutOperation_example.json: GET https://localhost:8443/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resRg/providers/Microsoft.ServiceFabric/clusters/myCluster/applicationTypes/myAppType/versions/1.0
+        --------------------------------------------------------------------------------
+        RESPONSE 461: 461 unknown
+        ERROR CODE: 461
+        --------------------------------------------------------------------------------
+        {
+          "error": {
+            "code": "461",
+            "message": "Wrong response example for operation",
+            "target": ""
+          }
+        }
+        --------------------------------------------------------------------------------
+--- FAIL: TestApplicationTypeVersions_CreateOrUpdate (0.01s)
+=== RUN   TestApplicationTypeVersions_Delete
+--- PASS: TestApplicationTypeVersions_Delete (0.01s)
+=== RUN   TestApplicationTypeVersions_List
+--- PASS: TestApplicationTypeVersions_List (0.01s)
+=== RUN   TestApplications_Get
+--- PASS: TestApplications_Get (0.01s)
+=== RUN   TestApplications_CreateOrUpdate
+    zt_generated_mock_test.go:2116: Failed to get LRO result for example specification/servicefabric/resource-manager/Microsoft.ServiceFabric/stable/2021-06-01/examples/ApplicationPutOperation_example_max.json: GET https://localhost:8443/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resRg/providers/Microsoft.ServiceFabric/clusters/myCluster/applications/myApp
+        --------------------------------------------------------------------------------
+        RESPONSE 461: 461 unknown
+        ERROR CODE: 461
+        --------------------------------------------------------------------------------
+        {
+          "error": {
+            "code": "461",
+            "message": "Wrong response example for operation",
+            "target": ""
+          }
+        }
+        --------------------------------------------------------------------------------
+--- FAIL: TestApplications_CreateOrUpdate (0.01s)
+=== RUN   TestApplications_Update
+    zt_generated_mock_test.go:2218: Failed to get LRO result for example specification/servicefabric/resource-manager/Microsoft.ServiceFabric/stable/2021-06-01/examples/ApplicationPatchOperation_example.json: GET https://localhost:8443/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resRg/providers/Microsoft.ServiceFabric/clusters/myCluster/applications/myApp
+        --------------------------------------------------------------------------------
+        RESPONSE 461: 461 unknown
+        ERROR CODE: 461
+        --------------------------------------------------------------------------------
+        {
+          "error": {
+            "code": "461",
+            "message": "Wrong response example for operation",
+            "target": ""
+          }
+        }
+        --------------------------------------------------------------------------------
+--- FAIL: TestApplications_Update (0.01s)
+=== RUN   TestApplications_Delete
+--- PASS: TestApplications_Delete (0.01s)
+=== RUN   TestApplications_List
+--- PASS: TestApplications_List (0.01s)
+=== RUN   TestServices_Get
+--- PASS: TestServices_Get (0.00s)
+=== RUN   TestServices_CreateOrUpdate
+    zt_generated_mock_test.go:2391: Failed to get LRO result for example specification/servicefabric/resource-manager/Microsoft.ServiceFabric/stable/2021-06-01/examples/ServicePutOperation_example_max.json: GET https://localhost:8443/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resRg/providers/Microsoft.ServiceFabric/clusters/myCluster/applications/myApp/services/myService
+        --------------------------------------------------------------------------------
+        RESPONSE 461: 461 unknown
+        ERROR CODE: 461
+        --------------------------------------------------------------------------------
+        {
+          "error": {
+            "code": "461",
+            "message": "Wrong response example for operation",
+            "target": ""
+          }
+        }
+        --------------------------------------------------------------------------------
+--- FAIL: TestServices_CreateOrUpdate (0.01s)
+=== RUN   TestServices_Update
+    zt_generated_mock_test.go:2459: Failed to get LRO result for example specification/servicefabric/resource-manager/Microsoft.ServiceFabric/stable/2021-06-01/examples/ServicePatchOperation_example.json: GET https://localhost:8443/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resRg/providers/Microsoft.ServiceFabric/clusters/myCluster/applications/myApp/services/myService
+        --------------------------------------------------------------------------------
+        RESPONSE 461: 461 unknown
+        ERROR CODE: 461
+        --------------------------------------------------------------------------------
+        {
+          "error": {
+            "code": "461",
+            "message": "Wrong response example for operation",
+            "target": ""
+          }
+        }
+        --------------------------------------------------------------------------------
+--- FAIL: TestServices_Update (0.01s)
+=== RUN   TestServices_Delete
+--- PASS: TestServices_Delete (0.02s)
+=== RUN   TestServices_List
+--- PASS: TestServices_List (0.01s)
+FAIL
+coverage: 59.4% of statements
+exit status 1
+FAIL	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicefabric/armservicefabric	0.277s
