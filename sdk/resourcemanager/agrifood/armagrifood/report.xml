@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite tests="15" failures="0" time="0.095" name="github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/agrifood/armagrifood">
+		<properties>
+			<property name="go.version" value="go1.18"></property>
+			<property name="coverage.statements.pct" value="66.8"></property>
+		</properties>
+		<testcase classname="armagrifood" name="TestExtensions_Create" time="0.020"></testcase>
+		<testcase classname="armagrifood" name="TestExtensions_Get" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestExtensions_Update" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestExtensions_Delete" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestExtensions_ListByFarmBeats" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestFarmBeatsExtensions_List" time="0.010"></testcase>
+		<testcase classname="armagrifood" name="TestFarmBeatsExtensions_Get" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestFarmBeatsModels_Get" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestFarmBeatsModels_CreateOrUpdate" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestFarmBeatsModels_Update" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestFarmBeatsModels_Delete" time="0.010"></testcase>
+		<testcase classname="armagrifood" name="TestFarmBeatsModels_ListBySubscription" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestFarmBeatsModels_ListByResourceGroup" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestLocations_CheckNameAvailability" time="0.010"></testcase>
+		<testcase classname="armagrifood" name="TestOperations_List" time="0.000"></testcase>
+	</testsuite>
+</testsuites>
