@@ -1,0 +1,33 @@
+=== RUN   TestExtensions_Create
+--- PASS: TestExtensions_Create (0.01s)
+=== RUN   TestExtensions_Get
+--- PASS: TestExtensions_Get (0.00s)
+=== RUN   TestExtensions_Update
+--- PASS: TestExtensions_Update (0.00s)
+=== RUN   TestExtensions_Delete
+--- PASS: TestExtensions_Delete (0.01s)
+=== RUN   TestExtensions_ListByFarmBeats
+--- PASS: TestExtensions_ListByFarmBeats (0.01s)
+=== RUN   TestFarmBeatsExtensions_List
+--- PASS: TestFarmBeatsExtensions_List (0.01s)
+=== RUN   TestFarmBeatsExtensions_Get
+--- PASS: TestFarmBeatsExtensions_Get (0.00s)
+=== RUN   TestFarmBeatsModels_Get
+--- PASS: TestFarmBeatsModels_Get (0.00s)
+=== RUN   TestFarmBeatsModels_CreateOrUpdate
+--- PASS: TestFarmBeatsModels_CreateOrUpdate (0.01s)
+=== RUN   TestFarmBeatsModels_Update
+--- PASS: TestFarmBeatsModels_Update (0.00s)
+=== RUN   TestFarmBeatsModels_Delete
+--- PASS: TestFarmBeatsModels_Delete (0.00s)
+=== RUN   TestFarmBeatsModels_ListBySubscription
+--- PASS: TestFarmBeatsModels_ListBySubscription (0.00s)
+=== RUN   TestFarmBeatsModels_ListByResourceGroup
+--- PASS: TestFarmBeatsModels_ListByResourceGroup (0.00s)
+=== RUN   TestLocations_CheckNameAvailability
+--- PASS: TestLocations_CheckNameAvailability (0.01s)
+=== RUN   TestOperations_List
+--- PASS: TestOperations_List (0.00s)
+PASS
+coverage: 66.8% of statements
+ok  	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/agrifood/armagrifood	0.094s
