@@ -1,0 +1,40 @@
+2022/05/16 11:56:14 AZURE_RECORD_MODE was not set, defaulting to playback
+2022/05/16 11:56:14 could not read file set in PROXY_CERT variable at /sdk-repo
+/eng/common/testproxy/dotnet-devcert.crt.
+2022/05/16 11:56:14 no certs appended, using system certs only
+2022/05/16 11:56:14 could not set the default matcher
+=== RUN   TestMockTest
+=== RUN   TestMockTest/TestExtensions_Create
+=== RUN   TestMockTest/TestExtensions_Delete
+=== RUN   TestMockTest/TestExtensions_Get
+=== RUN   TestMockTest/TestExtensions_ListByFarmBeats
+=== RUN   TestMockTest/TestExtensions_Update
+=== RUN   TestMockTest/TestFarmBeatsExtensions_Get
+=== RUN   TestMockTest/TestFarmBeatsExtensions_List
+=== RUN   TestMockTest/TestFarmBeatsModels_CreateOrUpdate
+=== RUN   TestMockTest/TestFarmBeatsModels_Delete
+=== RUN   TestMockTest/TestFarmBeatsModels_Get
+=== RUN   TestMockTest/TestFarmBeatsModels_ListByResourceGroup
+=== RUN   TestMockTest/TestFarmBeatsModels_ListBySubscription
+=== RUN   TestMockTest/TestFarmBeatsModels_Update
+=== RUN   TestMockTest/TestLocations_CheckNameAvailability
+=== RUN   TestMockTest/TestOperations_List
+--- PASS: TestMockTest (0.07s)
+    --- PASS: TestMockTest/TestExtensions_Create (0.01s)
+    --- PASS: TestMockTest/TestExtensions_Delete (0.00s)
+    --- PASS: TestMockTest/TestExtensions_Get (0.00s)
+    --- PASS: TestMockTest/TestExtensions_ListByFarmBeats (0.00s)
+    --- PASS: TestMockTest/TestExtensions_Update (0.00s)
+    --- PASS: TestMockTest/TestFarmBeatsExtensions_Get (0.00s)
+    --- PASS: TestMockTest/TestFarmBeatsExtensions_List (0.01s)
+    --- PASS: TestMockTest/TestFarmBeatsModels_CreateOrUpdate (0.00s)
+    --- PASS: TestMockTest/TestFarmBeatsModels_Delete (0.00s)
+    --- PASS: TestMockTest/TestFarmBeatsModels_Get (0.00s)
+    --- PASS: TestMockTest/TestFarmBeatsModels_ListByResourceGroup (0.00s)
+    --- PASS: TestMockTest/TestFarmBeatsModels_ListBySubscription (0.00s)
+    --- PASS: TestMockTest/TestFarmBeatsModels_Update (0.00s)
+    --- PASS: TestMockTest/TestLocations_CheckNameAvailability (0.01s)
+    --- PASS: TestMockTest/TestOperations_List (0.00s)
+PASS
+coverage: 69.1% of statements
+ok  	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/agrifood/armagrifood	0.099s

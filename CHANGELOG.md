@@ -1,5 +1,47 @@
 # CHANGELOG
 
+## `v64.1.0`
+
+### New Packages
+
+- `github.com/Azure/azure-sdk-for-go/services/keyvault/mgmt/2021-10-01/keyvault`
+
+### Updated Packages
+
+| Package Path | Changelog |
+| :--- | :---: |
+| `github.com/Azure/azure-sdk-for-go/services/datafactory/mgmt/2018-06-01/datafactory` | [details](https://github.com/Azure/azure-sdk-for-go/tree/main/services/datafactory/mgmt/2018-06-01/datafactory/CHANGELOG.md) |
+
+### Breaking Changes
+
+| Package Path | Changelog |
+| :--- | :---: |
+| `github.com/Azure/azure-sdk-for-go/services/preview/eventgrid/mgmt/2021-10-15-preview/eventgrid` | [details](https://github.com/Azure/azure-sdk-for-go/tree/main/services/preview/eventgrid/mgmt/2021-10-15-preview/eventgrid/CHANGELOG.md) |
+
+### Deprecated Packages
+- `github.com/Azure/azure-sdk-for-go/services/preview/videoanalyzer/mgmt/2021-05-01-preview/videoanalyzer`
+- `github.com/Azure/azure-sdk-for-go/services/preview/videoanalyzer/mgmt/2021-11-01-preview/videoanalyzer`
+
+## `v64.0.0`
+
+### New Packages
+
+- `github.com/Azure/azure-sdk-for-go/services/provisioningservices/mgmt/2022-02-05/iothub`
+- `github.com/Azure/azure-sdk-for-go/services/redhatopenshift/mgmt/2022-04-01/redhatopenshift`
+
+### Updated Packages
+
+| Package Path | Changelog |
+| :--- | :---: |
+| `github.com/Azure/azure-sdk-for-go/services/cosmos-db/mgmt/2021-10-15/documentdb` | [details](https://github.com/Azure/azure-sdk-for-go/blob/v64.0.0/services/cosmos-db/mgmt/2021-10-15/documentdb/CHANGELOG.md) |
+
+### Breaking Changes
+
+| Package Path | Changelog |
+| :--- | :---: |
+| `github.com/Azure/azure-sdk-for-go/services/datafactory/mgmt/2018-06-01/datafactory` | [details](https://github.com/Azure/azure-sdk-for-go/blob/v64.0.0/services/datafactory/mgmt/2018-06-01/datafactory/CHANGELOG.md) |
+| `github.com/Azure/azure-sdk-for-go/services/recoveryservices/mgmt/2021-12-01/backup` | [details](https://github.com/Azure/azure-sdk-for-go/blob/v64.0.0/services/recoveryservices/mgmt/2021-12-01/backup/CHANGELOG.md) |
+
 ## `v63.4.0`
 
 ### New Packages
@@ -13,7 +55,7 @@
 
 | Package Path | Changelog |
 | :--- | :---: |
-| `github.com/Azure/azure-sdk-for-go/services/preview/synapse/mgmt/v2.0/synapse` | [details](https://github.com/Azure/azure-sdk-for-go/tree/main/services/preview/synapse/mgmt/v2.0/synapse/CHANGELOG.md) |
+| `github.com/Azure/azure-sdk-for-go/services/preview/synapse/mgmt/v2.0/synapse` | [details](https://github.com/Azure/azure-sdk-for-go/blob/v63.4.0/services/preview/synapse/mgmt/v2.0/synapse/CHANGELOG.md) |
 
 ## `v63.3.0`
 

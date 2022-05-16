@@ -19,8 +19,8 @@ function Invoke-MgmtTestgen ()
         [string]$autorestPath = "",
         [string]$config = "autorest.md",
         [string]$autorestVersion = "3.8.2",
-        [string]$goExtension = "@autorest/go@4.0.0-preview.39",
-        [string]$testExtension = "@autorest/gotest@3.1.1",
+        [string]$goExtension = "@autorest/go@4.0.0-preview.41",
+        [string]$testExtension = "@autorest/gotest@4.0.0",
         [string]$outputFolder
     )
     if ($clean)
@@ -310,7 +310,7 @@ function TestAndGenerateReport($dir)
 
     # do test with corage report and convert to cobertura format
     Write-Host "go cmd: go test -v -coverprofile coverage.txt | Tee-Object -FilePath outfile.txt"
-    go test -v -coverprofile coverage.txt | Tee-Object -FilePath outfile.txt
+    go test -v -coverprofile coverage.txt -run TestMockTest | Tee-Object -FilePath outfile.txt
     Write-Host "report.xml: Get-Content outfile.txt | go-junit-report > report.xml"
     Get-Content outfile.txt | go-junit-report > report.xml
     Write-Host "coverage.json: gocov convert ./coverage.txt > ./coverage.json"
