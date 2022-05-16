@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite tests="16" failures="0" time="0.120" name="github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/agrifood/armagrifood">
+		<properties>
+			<property name="go.version" value="go1.18"></property>
+			<property name="coverage.statements.pct" value="69.1"></property>
+		</properties>
+		<testcase classname="armagrifood" name="TestMockTest" time="0.090"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestExtensions_Create" time="0.010"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestExtensions_Delete" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestExtensions_Get" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestExtensions_ListByFarmBeats" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestExtensions_Update" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestFarmBeatsExtensions_Get" time="0.010"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestFarmBeatsExtensions_List" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestFarmBeatsModels_CreateOrUpdate" time="0.010"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestFarmBeatsModels_Delete" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestFarmBeatsModels_Get" time="0.000"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestFarmBeatsModels_ListByResourceGroup" time="0.010"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestFarmBeatsModels_ListBySubscription" time="0.010"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestFarmBeatsModels_Update" time="0.010"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestLocations_CheckNameAvailability" time="0.010"></testcase>
+		<testcase classname="armagrifood" name="TestMockTest/TestOperations_List" time="0.000"></testcase>
+	</testsuite>
+</testsuites>
