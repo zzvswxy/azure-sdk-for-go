@@ -1,15 +1,24 @@
 # Release History
 
-## 0.3.0 (Unreleased)
+## 0.3.2 (Unreleased)
 
 ### Features Added
 
 ### Breaking Changes
-* Changed argument semantics of `AddSetting`, `DeleteSetting`, `GetSetting`, `SetSetting`, and `SetReadOnly`.
 
 ### Bugs Fixed
 
 ### Other Changes
+
+## 0.3.1 (2022-05-12)
+
+### Other Changes
+* Update to latest `azcore`
+
+## 0.3.0 (2022-05-10)
+
+### Breaking Changes
+* Changed argument semantics of `AddSetting`, `DeleteSetting`, `GetSetting`, `SetSetting`, and `SetReadOnly`.
 
 ## 0.2.0 (2022-04-20)
 

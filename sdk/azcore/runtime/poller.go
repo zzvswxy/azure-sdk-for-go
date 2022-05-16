@@ -15,14 +15,13 @@ import (
 	"time"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/internal/exported"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/internal/log"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/internal/pollers"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/internal/pollers/armloc"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/internal/pollers/async"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/internal/pollers/body"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/internal/pollers/loc"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/internal/pollers/op"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/internal/shared"
-	"github.com/Azure/azure-sdk-for-go/sdk/internal/log"
 )
 
 // FinalStateVia is the enumerated type for the possible final-state-via values.
@@ -60,11 +59,15 @@ func NewPoller[T any](resp *http.Response, pl exported.Pipeline, options *NewPol
 	if options == nil {
 		options = &NewPollerOptions[T]{}
 	}
+	result := options.Response
+	if result == nil {
+		result = new(T)
+	}
 	if options.Handler != nil {
 		return &Poller[T]{
 			op:     options.Handler,
 			resp:   resp,
-			result: options.Response,
+			result: result,
 		}, nil
 	}
 
@@ -84,8 +87,6 @@ func NewPoller[T any](resp *http.Response, pl exported.Pipeline, options *NewPol
 	} else if op.Applicable(resp) {
 		// op poller must be checked before loc as it can also have a location header
 		opr, err = op.New[T](pl, resp, options.FinalStateVia)
-	} else if armloc.Applicable(resp) {
-		opr, err = armloc.New[T](pl, resp)
 	} else if loc.Applicable(resp) {
 		opr, err = loc.New[T](pl, resp)
 	} else if body.Applicable(resp) {
@@ -106,7 +107,7 @@ func NewPoller[T any](resp *http.Response, pl exported.Pipeline, options *NewPol
 	return &Poller[T]{
 		op:     opr,
 		resp:   resp,
-		result: options.Response,
+		result: result,
 	}, nil
 }
 
@@ -125,6 +126,10 @@ func NewPollerFromResumeToken[T any](token string, pl exported.Pipeline, options
 	if options == nil {
 		options = &NewPollerFromResumeTokenOptions[T]{}
 	}
+	result := options.Response
+	if result == nil {
+		result = new(T)
+	}
 
 	if err := pollers.IsTokenValid[T](token); err != nil {
 		return nil, err
@@ -142,8 +147,6 @@ func NewPollerFromResumeToken[T any](token string, pl exported.Pipeline, options
 	// now rehydrate the poller based on the encoded poller type
 	if async.CanResume(asJSON) {
 		opr, _ = async.New[T](pl, nil, "")
-	} else if armloc.CanResume(asJSON) {
-		opr, _ = armloc.New[T](pl, nil)
 	} else if body.CanResume(asJSON) {
 		opr, _ = body.New[T](pl, nil)
 	} else if loc.CanResume(asJSON) {
@@ -160,7 +163,7 @@ func NewPollerFromResumeToken[T any](token string, pl exported.Pipeline, options
 	}
 	return &Poller[T]{
 		op:     opr,
-		result: options.Response,
+		result: result,
 	}, nil
 }
 
@@ -172,9 +175,9 @@ type PollingHandler[T any] interface {
 	// Poll fetches the latest state of the LRO.
 	Poll(context.Context) (*http.Response, error)
 
-	// Result is called once the LRO has reached a terminal state. It returns the result of the operation.
-	// The out parameter is an optional, preconstructed response type to receive the final payload.
-	Result(ctx context.Context, out *T) (T, error)
+	// Result is called once the LRO has reached a terminal state. It populates the out parameter
+	// with the result of the operation.
+	Result(ctx context.Context, out *T) error
 }
 
 // Poller encapsulates a long-running operation, providing polling facilities until the operation reaches a terminal state.
@@ -289,7 +292,7 @@ func (p *Poller[T]) Result(ctx context.Context) (T, error) {
 		}
 		return *p.result, nil
 	}
-	res, err := p.op.Result(ctx, p.result)
+	err := p.op.Result(ctx, p.result)
 	var respErr *exported.ResponseError
 	if errors.As(err, &respErr) {
 		// the LRO failed. record the error
@@ -297,9 +300,6 @@ func (p *Poller[T]) Result(ctx context.Context) (T, error) {
 	} else if err != nil {
 		// the call to Result failed, don't cache anything in this case
 		return *new(T), err
-	} else {
-		// the LRO succeeded. record the result
-		p.result = &res
 	}
 	p.done = true
 	if p.err != nil {
