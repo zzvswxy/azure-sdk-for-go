@@ -4,6 +4,16 @@
 ### Breaking Changes
 
 - Function `OperationListResult.MarshalJSON` has been removed
+- Function `ExtensionListResponse.MarshalJSON` has been removed
+- Function `FarmBeatsListResponse.MarshalJSON` has been removed
+- Function `FarmBeatsExtensionListResponse.MarshalJSON` has been removed
+- Function `ErrorDetail.MarshalJSON` has been removed
+
+
+## 0.6.0 (2022-05-17)
+### Breaking Changes
+
+- Function `OperationListResult.MarshalJSON` has been removed
 - Function `ErrorDetail.MarshalJSON` has been removed
 - Function `FarmBeatsExtensionListResponse.MarshalJSON` has been removed
 - Function `ExtensionListResponse.MarshalJSON` has been removed
