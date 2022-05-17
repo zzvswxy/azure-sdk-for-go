@@ -1,14 +1,23 @@
 # Release History
 
-## 0.5.1 (Unreleased)
+## 0.5.2 (Unreleased)
 
 ### Features Added
 
 ### Breaking Changes
+* Renamed methods which return `Pager[T]`:
+  * `ListDeletedKeys` to `NewListDeletedKeysPager`
+  * `ListPropertiesOfKeys` to `NewListPropertiesOfKeysPager`
+  * `ListPropertiesOfKeyVersions` to `NewListPropertiesOfKeyVersionsPager`
 
 ### Bugs Fixed
 
 ### Other Changes
+
+## 0.5.1 (2022-05-12)
+
+### Other Changes
+* Update to latest `azcore` and `internal` modules.
 
 ## 0.5.0 (2022-04-06)
 

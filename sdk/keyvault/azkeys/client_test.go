@@ -169,7 +169,7 @@ func TestListKeys(t *testing.T) {
 				require.NoError(t, err)
 			}
 
-			pager := client.ListPropertiesOfKeys(nil)
+			pager := client.NewListPropertiesOfKeysPager(nil)
 			count := 0
 			for pager.More() {
 				resp, err := pager.NextPage(ctx)
@@ -500,17 +500,28 @@ func TestUpdateKeyPropertiesImmutable(t *testing.T) {
 			})
 			require.NoError(t, err)
 
-			createResp, err := client.CreateRSAKey(ctx, key, &CreateRSAKeyOptions{
-				HardwareProtected: to.Ptr(true),
-				Properties: &Properties{
-					Exportable: to.Ptr(true),
-				},
-				ReleasePolicy: &ReleasePolicy{
-					Immutable:     to.Ptr(true),
-					EncodedPolicy: marshalledPolicy,
-				},
-				Operations: []*Operation{to.Ptr(OperationEncrypt), to.Ptr(OperationDecrypt)},
-			})
+			// retry creating the release policy because Key Vault sometimes can't reach
+			// the fake attestation service we use in CI for several minutes after deployment
+			var createResp CreateRSAKeyResponse
+			for i := 0; i < 5; i++ {
+				createResp, err = client.CreateRSAKey(ctx, key, &CreateRSAKeyOptions{
+					HardwareProtected: to.Ptr(true),
+					Properties: &Properties{
+						Exportable: to.Ptr(true),
+					},
+					ReleasePolicy: &ReleasePolicy{
+						Immutable:     to.Ptr(true),
+						EncodedPolicy: marshalledPolicy,
+					},
+					Operations: []*Operation{to.Ptr(OperationEncrypt), to.Ptr(OperationDecrypt)},
+				})
+				if err == nil {
+					break
+				}
+				if recording.GetRecordMode() != recording.PlaybackMode {
+					time.Sleep(time.Minute)
+				}
+			}
 			require.NoError(t, err)
 			defer cleanUpKey(t, client, key)
 
@@ -583,7 +594,7 @@ func TestListDeletedKeys(t *testing.T) {
 			_, err = pollerResp.PollUntilDone(ctx, delay())
 			require.NoError(t, err)
 
-			pager := client.ListDeletedKeys(nil)
+			pager := client.NewListDeletedKeysPager(nil)
 			count := 0
 			for pager.More() {
 				resp, err := pager.NextPage(ctx)
@@ -617,7 +628,7 @@ func TestListKeyVersions(t *testing.T) {
 				require.NoError(t, err)
 			}
 
-			pager := client.ListPropertiesOfKeyVersions(key, nil)
+			pager := client.NewListPropertiesOfKeyVersionsPager(key, nil)
 			count := 0
 			for pager.More() {
 				resp, err := pager.NextPage(ctx)

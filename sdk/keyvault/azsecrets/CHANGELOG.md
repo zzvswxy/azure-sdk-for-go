@@ -1,14 +1,25 @@
 # Release History
 
-## 0.7.1 (Unreleased)
+## 0.7.2 (Unreleased)
 
 ### Features Added
 
 ### Breaking Changes
+* Renamed methods which return `Pager[T]`:
+  * `ListDeletedSecrets` to `NewListDeletedSecretsPager`
+  * `ListPropertiesOfSecrets` to `NewListPropertiesOfSecretsPager`
+  * `NewListPropertiesOfSecretVersionsPager` to `NewListPropertiesOfSecretVersionsPager`
+* Renamed `ListSecretVersionsOptions` to `ListPropertiesOfSecretVersionsOptions` and
+  `ListSecretsOptions` to `ListPropertiesOfSecretsOptions`
 
 ### Bugs Fixed
 
 ### Other Changes
+
+## 0.7.1 (2022-05-12)
+
+### Other Changes
+* Updated to latest `azcore` and `internal` modules.
 
 ## 0.7.0 (2022-04-06)
 

@@ -1,6 +1,16 @@
 # Release History
 
-## 0.24.0 (Unreleased)
+## 1.0.1 (Unreleased)
+
+### Features Added
+
+### Breaking Changes
+
+### Bugs Fixed
+
+### Other Changes
+
+## 1.0.0 (2022-05-12)
 
 ### Features Added
 * Added interface `runtime.PollingHandler` to support custom poller implementations.
@@ -27,10 +37,14 @@
   * `Result()` will cache the terminal result or error but not transient errors, allowing for additional retries.
 
 ### Other Changes
+* Updated to latest `internal` module and absorbed breaking changes.
+  * Use `temporal.Resource` and deleted copy.
 * The internal poller implementation has been refactored.
   * The implementation in `internal/pollers/poller.go` has been merged into `runtime/poller.go` with some slight modification.
   * The internal poller types had their methods updated to conform to the `runtime.PollingHandler` interface.
   * The creation of resume tokens has been refactored so that implementers of `runtime.PollingHandler` don't need to know about it.
+* `NewPipeline()` places policies from `ClientOptions` after policies from `PipelineOptions`
+* Default User-Agent headers no longer include `azcore` version information
 
 ## 0.23.1 (2022-04-14)
 
